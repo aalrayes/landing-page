@@ -25,9 +25,24 @@ function buildNav(sections) {
         a.classList.add('menu__link');
         a.href = '#' + id;
         a.innerHTML = data;
+        a.addEventListener('click', (e) => {});
         li.appendChild(a);
         navlist.appendChild(li);
     }
+
+    //adding an event listener to the ul, so we can avoid creating mulibule listners for each link and adding a smooth scroll effect.
+    navlist.addEventListener('click', (event) => {
+        event.preventDefault();
+        const link = event.target.getAttribute('href');
+        if (link !== null) {
+            const section = document.querySelector(`${link}`);
+            section.scrollIntoView({
+                behavior: "smooth",
+                block: "end",
+                inline: "nearest"
+            });
+        }
+    });
 }
 
 // Add class 'active' to section when near top of viewport
@@ -40,10 +55,9 @@ function setActiveSection(section) {
         }
     });
     setActiveLink(`#${section.id}`);
-
 }
 
-
+// Add class 'active' to the link when its coresponding section when near top of viewport
 function setActiveLink(id) {
     const links = document.querySelectorAll('.menu__link');
     console.log(links);
@@ -55,10 +69,11 @@ function setActiveLink(id) {
             link.classList.add('active__link');
         }
     })
-
 }
+
 document.addEventListener("DOMContentLoaded", () => {
     const sections = document.querySelectorAll("section");
+    const links = document.querySelectorAll(".menu__link");
     const options = {
         root: null,
         threshold: 1,
@@ -79,6 +94,8 @@ document.addEventListener("DOMContentLoaded", () => {
     sections.forEach(section => {
         observer.observe(section);
     });
+
+
 
 
 });
