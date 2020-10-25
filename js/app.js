@@ -25,7 +25,6 @@ function buildNav(sections) {
         a.classList.add('menu__link');
         a.href = '#' + id;
         a.innerHTML = data;
-        a.addEventListener('click', (e) => {});
         li.appendChild(a);
         navlist.appendChild(li);
     }
